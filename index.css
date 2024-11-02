@@ -1,4 +1,12 @@
 body {
   margin: 0rem;
   padding: 0rem;
+  display: grid;
+  place-items: center;
+}
+
+div button {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }

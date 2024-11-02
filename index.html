@@ -26,13 +26,47 @@
             alt: "  Vuejs",
             title: "Vuejs"
 
-          }
+          },
+          theEvent: "submit"
 
         };
       },
       // template: `<div> <img v-bind:src="img.src" v-bind:alt="img.alt" v-bind:title="img.title"> </div>`
-      template: `<div> <img v-bind="{src: img.src, alt: img.alt, title: img.title}"> </div>`
+      // template: `<div> <img v-bind="{src: img.src, alt: img.alt, title: img.title}"> </div>`
       // template: `<div> <img v-bind:[attr]="img.src"> </div>`
+
+      // template: `<div> <button @click="count++"> {{ count }} </button>  </div>`
+
+      methods: {
+        increment() {
+          this.count++;
+        },
+
+        decrement() {
+          this.count--;
+        },
+        // submit(event) {
+        //   event.preventDefault();
+
+        //   console.log('event', event);
+        // }
+        submit(event) {
+          // event.preventDefault();
+
+          console.log('event', event);
+        }
+      },
+
+      // template: `<div> <button v-on:click="increment"> {{ count }} </button>  </div>`
+      // template: `<form v-on:submit.prevent="submit"> <button type="submit"> {{ count }} </button>  </form>`
+      // template: `<form v-on:submit.prevent.stop="submit"> <button type="submit"> {{ count }} </button>  </form>`
+      // template: `<form v-on:[theEvent].prevent="submit"> <button type="submit"> {{ count }} </button>  </form>`
+
+      template: `<div> <button type="button" v-on:click="increment">+</button> <button type="button" v-on:click="decrement">-</button> <p> {{ count }} </p> </div>`
+
+
+
+
 
     }).mount('#app');
   </script>
