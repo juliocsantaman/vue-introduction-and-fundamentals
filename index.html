@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Introduction and Fundamentals about Vuejs</title>
+</head>
+<body>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <div id="app">
+    <!-- <button @click="count++">{{ count }}</button> -->
+    
+  </div>
+
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          count: 0,
+          text: '<strong> Julio </strong>'
+        };
+      },
+      template: `<div> <button @click="count++" v-once v-text="count">  </button> <p> This is a p {{ count }} </p> <p v-html="text"> </p> </div>`
+    }).mount('#app');
+  </script>
+  
+
+</body>
+</html>
