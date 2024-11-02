@@ -54,7 +54,10 @@
           // event.preventDefault();
 
           console.log('event', event);
-        }
+        },
+        // changeText(event) {
+        //   this.text = event.target.value;
+        // }
       },
 
       // template: `<div> <button v-on:click="increment"> {{ count }} </button>  </div>`
@@ -62,8 +65,13 @@
       // template: `<form v-on:submit.prevent.stop="submit"> <button type="submit"> {{ count }} </button>  </form>`
       // template: `<form v-on:[theEvent].prevent="submit"> <button type="submit"> {{ count }} </button>  </form>`
 
-      template: `<div> <button type="button" v-on:click="increment">+</button> <button type="button" v-on:click="decrement">-</button> <p> {{ count }} </p> </div>`
+      // template: `<div> <button type="button" v-on:click="increment">+</button> <button type="button" v-on:click="decrement">-</button> <p> {{ count }} </p> </div>`
 
+      // template: `<div> <p> {{ text }} </p> <input type="text" v-on:input="changeText" v-bind:value="text"> </div>`
+
+      // template: `<div> <p> {{ text }} </p> <input type="text" @input="changeText" :value="text"> </div>`
+
+      template: `<div> <p> {{ text }} </p> <input type="text" v-model="text"> </div>`
 
 
 
