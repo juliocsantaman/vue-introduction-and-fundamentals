@@ -10,7 +10,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
   <div id="app">
-    <!-- <button @click="count++">{{ count }}</button> -->
+    
     
   </div>
 
@@ -19,10 +19,21 @@
       data() {
         return {
           count: 0,
-          text: '<strong> Julio </strong>'
+          text: '<strong> Julio </strong>',
+          attr: "src",
+          img: {
+            src: "data:image/png;base64,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",
+            alt: "  Vuejs",
+            title: "Vuejs"
+
+          }
+
         };
       },
-      template: `<div> <button @click="count++" v-once v-text="count">  </button> <p> This is a p {{ count }} </p> <p v-html="text"> </p> </div>`
+      // template: `<div> <img v-bind:src="img.src" v-bind:alt="img.alt" v-bind:title="img.title"> </div>`
+      template: `<div> <img v-bind="{src: img.src, alt: img.alt, title: img.title}"> </div>`
+      // template: `<div> <img v-bind:[attr]="img.src"> </div>`
+
     }).mount('#app');
   </script>
   
