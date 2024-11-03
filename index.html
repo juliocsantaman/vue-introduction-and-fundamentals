@@ -37,6 +37,12 @@
           // containerStyles: {
           //   backgroundColor: "#eca1a6"
           // }
+          labelForLogin: 'Inactive Session',
+          user: {
+            username: '',
+            password: ''
+          },
+          signInError: ''
 
         };
       },
@@ -70,7 +76,24 @@
 
         toggleOpen() {
           this.open = !this.open
-        }
+        },
+        signIn(event) {
+          event.preventDefault();
+          if(this.user.username.trim() !== '' && this.user.password !== '') {
+            this.signInError = '';
+            this.open = !this.open
+          } else {
+            this.signInError = 'There is an error with your username or password.';
+          }
+
+          if(!this.open) {
+            this.user.username = '';
+            this.user.password = '';
+          }
+
+        },
+
+    
       },
 
       computed: {
@@ -84,6 +107,9 @@
         labelTextForOpen() {
           return this.open ? 'Close' : 'Open';
         },
+        textForLoginButton() {
+          return this.open ? 'Sign out' : 'Sign in'
+        },
         containerStyles() {
           return this.open ? ['open'] : ['close'];
         }
@@ -94,9 +120,11 @@
           console.log('watch open', value);
           if (value) {
             this.textForOpen = "Opened door";
+            this.labelForLogin = "Active Session";
             // this.containerStyles.backgroundColor = "#b5e7a0";
           } else {
             this.textForOpen = "Closed door";
+            this.labelForLogin = "Inactive Session";
             // this.containerStyles.backgroundColor = "#eca1a6";
 
           }
@@ -147,12 +175,42 @@
       //   </div>
       // `
 
-      
+
+      // template:
+      //   `
+      //   <div class="container" v-bind:class="containerStyles">
+      //   <h2> {{ textForOpen }} </h2>
+      //   <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+      //   </div>
+      // `
+
       template:
         `
         <div class="container" v-bind:class="containerStyles">
-        <h2> {{ textForOpen }} </h2>
-        <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+        <h2> {{ labelForLogin }} </h2>
+        <form class="form" v-on:submit="signIn"> 
+          
+          <div v-if="!open">
+
+           <input type="text" placeholder="type your email" v-model="user.username">
+           <input type="password" placeholder="type your password" v-model="user.password">
+
+          </div>
+
+          <div v-if="open">
+            <p>Username: {{ user.username }}</p>
+            <p>Username: {{ user.password }}</p>
+          </div>
+
+          <div>
+            <button type="submit"> {{ textForLoginButton }} </button>
+          </div>
+
+          <div class="sign-in-error">
+            {{ signInError }}
+          </div>
+          
+        </form>
         </div>
       `
 

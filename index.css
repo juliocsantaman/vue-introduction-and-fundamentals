@@ -26,6 +26,25 @@ div button {
   cursor: pointer;
 }
 
+.form {
+  width: 12rem;
+}
+
+.form div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form div button {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.form .sign-in-error {
+  margin-top: 1rem;
+}
+
 .close {
   background-color: #eca1a6;
 }
