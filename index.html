@@ -27,7 +27,9 @@
             title: "Vuejs"
 
           },
-          theEvent: "submit"
+          theEvent: "submit",
+          firstName: "Julio",
+          lastName: "Santaman"
 
         };
       },
@@ -60,6 +62,16 @@
         // }
       },
 
+      computed: {
+        fullName() {
+          return this.firstName + " " + this.lastName;
+        },
+
+        today() {
+          return new Date().toLocaleString();
+        }
+      },
+
       // template: `<div> <button v-on:click="increment"> {{ count }} </button>  </div>`
       // template: `<form v-on:submit.prevent="submit"> <button type="submit"> {{ count }} </button>  </form>`
       // template: `<form v-on:submit.prevent.stop="submit"> <button type="submit"> {{ count }} </button>  </form>`
@@ -71,7 +83,13 @@
 
       // template: `<div> <p> {{ text }} </p> <input type="text" @input="changeText" :value="text"> </div>`
 
-      template: `<div> <p> {{ text }} </p> <input type="text" v-model="text"> </div>`
+      // template: `<div> <p> {{ text }} </p> <input type="text" v-model="text"> </div>`
+
+      template: 
+      `
+        <div> {{ fullName }} </div>
+        <div> {{ today }} </div>
+      `
 
 
 
