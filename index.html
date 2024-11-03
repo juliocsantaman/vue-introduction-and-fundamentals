@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="index.css">
   <title>Introduction and Fundamentals about Vuejs</title>
 </head>
+
 <body>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
   <div id="app">
-    
-    
+
+
   </div>
 
   <script>
@@ -31,7 +33,10 @@
           firstName: "Julio",
           lastName: "Santaman",
           open: false,
-          textForOpen: 'Closed door'
+          textForOpen: 'Closed door',
+          // containerStyles: {
+          //   backgroundColor: "#eca1a6"
+          // }
 
         };
       },
@@ -77,17 +82,23 @@
           return new Date().toLocaleString();
         },
         labelTextForOpen() {
-          return this.open ? 'Close door' : 'Open door';
+          return this.open ? 'Close' : 'Open';
+        },
+        containerStyles() {
+          return this.open ? ['open'] : ['close'];
         }
       },
 
       watch: {
         open(value) {
           console.log('watch open', value);
-          if(value) {
+          if (value) {
             this.textForOpen = "Opened door";
+            // this.containerStyles.backgroundColor = "#b5e7a0";
           } else {
-            this.textForOpen = "Closed door"
+            this.textForOpen = "Closed door";
+            // this.containerStyles.backgroundColor = "#eca1a6";
+
           }
 
         }
@@ -111,19 +122,46 @@
       //   <div> {{ fullName }} </div>
       //   <div> {{ today }} </div>
       // `
-      
-      template: 
-      `
-        <div> {{ textForOpen }} </div>
-        <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
-      `
 
+      // template: 
+      // `
+      //   <div class="container" v-bind:style="containerStyles">
+      //   <h2> {{ textForOpen }} </h2>
+      //   <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+      //   </div>
+      // `
+
+      // template:
+      //   `
+      //   <div class="container" v-bind:style="containerStyles">
+      //   <h2> {{ textForOpen }} </h2>
+      //   <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+      //   </div>
+      // `
+
+      // template:
+      //   `
+      //   <div class="container" v-bind:class="{ 'open': open, 'close': !open }">
+      //   <h2> {{ textForOpen }} </h2>
+      //   <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+      //   </div>
+      // `
+
+      
+      template:
+        `
+        <div class="container" v-bind:class="containerStyles">
+        <h2> {{ textForOpen }} </h2>
+        <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
+        </div>
+      `
 
 
 
     }).mount('#app');
   </script>
-  
+
 
 </body>
+
 </html>
