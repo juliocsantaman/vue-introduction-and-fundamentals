@@ -29,7 +29,9 @@
           },
           theEvent: "submit",
           firstName: "Julio",
-          lastName: "Santaman"
+          lastName: "Santaman",
+          open: false,
+          textForOpen: 'Closed door'
 
         };
       },
@@ -60,6 +62,10 @@
         // changeText(event) {
         //   this.text = event.target.value;
         // }
+
+        toggleOpen() {
+          this.open = !this.open
+        }
       },
 
       computed: {
@@ -69,6 +75,21 @@
 
         today() {
           return new Date().toLocaleString();
+        },
+        labelTextForOpen() {
+          return this.open ? 'Close door' : 'Open door';
+        }
+      },
+
+      watch: {
+        open(value) {
+          console.log('watch open', value);
+          if(value) {
+            this.textForOpen = "Opened door";
+          } else {
+            this.textForOpen = "Closed door"
+          }
+
         }
       },
 
@@ -85,10 +106,16 @@
 
       // template: `<div> <p> {{ text }} </p> <input type="text" v-model="text"> </div>`
 
+      // template: 
+      // `
+      //   <div> {{ fullName }} </div>
+      //   <div> {{ today }} </div>
+      // `
+      
       template: 
       `
-        <div> {{ fullName }} </div>
-        <div> {{ today }} </div>
+        <div> {{ textForOpen }} </div>
+        <button type="button" v-on:click="toggleOpen()"> {{ labelTextForOpen }} </button>
       `
 
 
