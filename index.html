@@ -42,7 +42,13 @@
             username: '',
             password: ''
           },
-          signInError: ''
+          signInError: '',
+          posts: [{ title: 'Title 1', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 2', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 3', description: 'lorem lorem dklfdnkljd' }],
+          postError: ''
+          // post: {
+          //   title: '',
+          //   description: ''
+          // }
 
         };
       },
@@ -79,21 +85,46 @@
         },
         signIn(event) {
           event.preventDefault();
-          if(this.user.username.trim() !== '' && this.user.password !== '') {
+          if (this.user.username.trim() !== '' && this.user.password !== '') {
             this.signInError = '';
             this.open = !this.open
           } else {
             this.signInError = 'There is an error with your username or password.';
           }
 
-          if(!this.open) {
+          if (!this.open) {
             this.user.username = '';
             this.user.password = '';
           }
 
         },
 
-    
+        deletePost(index) {
+          console.log('index of the element: ', index);
+          this.posts.splice(index, 1);
+
+        },
+
+        addPost(event) {
+          event.preventDefault();
+          console.group('addPost');
+          console.log('event', event);
+          console.groupEnd();
+          if(event.target[0].value !== '' && event.target[1].value !== '') {
+            const newPost = {
+              title: event.target[0].value,
+              description: event.target[1].value
+            };
+            this.posts.push(newPost);
+            event.target[0].value = '';
+            event.target[1].value = '';
+            this.postError = '';
+          } else {
+            this.postError = "You have to type a title and description to add a new post.";
+          }
+        }
+
+
       },
 
       computed: {
@@ -187,30 +218,56 @@
       template:
         `
         <div class="container" v-bind:class="containerStyles">
-        <h2> {{ labelForLogin }} </h2>
-        <form class="form" v-on:submit="signIn"> 
-          
-          <div v-if="!open">
+          <h2> {{ labelForLogin }} </h2>
+          <form class="form" v-on:submit="signIn"> 
+            
+            <div v-if="!open">
 
-           <input type="text" placeholder="type your email" v-model="user.username">
-           <input type="password" placeholder="type your password" v-model="user.password">
+            <input type="text" placeholder="type your email" v-model="user.username">
+            <input type="password" placeholder="type your password" v-model="user.password">
 
-          </div>
+            </div>
 
-          <div v-if="open">
-            <p>Username: {{ user.username }}</p>
-            <p>Username: {{ user.password }}</p>
-          </div>
+            <div v-if="open">
+              <div>Username: {{ user.username }}</div>
+              <div>Password: {{ user.password }}</div>
 
-          <div>
-            <button type="submit"> {{ textForLoginButton }} </button>
-          </div>
+              <div class="list">
+                <div class="post" v-for="(post, index) in posts" :key="index">
+                  <div class="post__title"> {{ post.title }} - index: {{ index }} </div>
+                  <p class="post__description"> 
+                    {{ post.description }}
+                  </p>
+                  <button type="button" v-on:click="deletePost(index)"> Delete </button>
+                </div>
+              </div>
 
-          <div class="sign-in-error">
-            {{ signInError }}
-          </div>
-          
-        </form>
+            </div>
+
+            <div>
+              <button type="submit"> {{ textForLoginButton }} </button>
+            </div>
+
+            <div class="sign-in-error">
+              {{ signInError }}
+            </div>
+            
+          </form>
+
+          <form v-on:submit="addPost" v-if="open">
+            <div> 
+              <label>Post title</label>
+              <input type="text">  
+            </div>
+
+            <div> 
+              <label>Post description</label>
+              <input type="text">  
+            </div>
+
+            <button type="submit">Add post</button>
+            <div> {{ postError }} </div>
+          </form>
         </div>
       `
 
