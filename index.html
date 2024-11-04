@@ -17,7 +17,7 @@
   </div>
 
   <script>
-    Vue.createApp({
+    const app = Vue.createApp({
       data() {
         return {
           count: 0,
@@ -233,13 +233,7 @@
               <div>Password: {{ user.password }}</div>
 
               <div class="list">
-                <div class="post" v-for="(post, index) in posts" :key="index">
-                  <div class="post__title"> {{ post.title }} - index: {{ index }} </div>
-                  <p class="post__description"> 
-                    {{ post.description }}
-                  </p>
-                  <button type="button" v-on:click="deletePost(index)"> Delete </button>
-                </div>
+                <post v-for="(post, index) in posts" :key="index" :post="post" :index="index" :deletePost="deletePost" />
               </div>
 
             </div>
@@ -273,7 +267,23 @@
 
 
 
-    }).mount('#app');
+    });
+
+    app.component('post', {
+      props: ['post', 'index', 'deletePost'],
+      template: 
+      `
+        <div class="post">
+          <div class="post__title"> {{ post.title }} - index: {{ index }} </div>
+          <p class="post__description"> 
+          {{ post.description }}
+          </p>
+          <button type="button" v-on:click="deletePost(index)"> Delete </button>
+        </div>
+      `
+    });
+    
+    const vm = app.mount('#app');
   </script>
 
 
