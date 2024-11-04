@@ -76,7 +76,13 @@
           } else {
             this.postError = "You have to type a title and description to add a new post.";
           }
-        }
+        },
+        removeItem(index) {
+          console.log('index of the element: ', index);
+          this.items.splice(index, 1);
+
+        },
+
 
 
       },
@@ -110,8 +116,8 @@
         </v-layout>
 
         <ul>
-          <v-item v-for="(item, index) in items" :key="index" v-bind:text="item" />
-          <v-item />
+          <v-item v-for="(item, index) in items" :key="index" v-bind:text="item" v-on:removeItem="removeItem(index)" />
+          
 
         </ul>
 
@@ -175,9 +181,14 @@
           default: 'default text'
         }
       },
+      methods: {
+        removeItem() {
+          this.$emit('removeItem');
+        }
+      },
       template: 
       `
-        <li> {{ text }} </li>
+        <li v-on:click="removeItem"> {{ text }} </li>
       `
     });
 
