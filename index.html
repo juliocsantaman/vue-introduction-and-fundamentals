@@ -28,7 +28,8 @@
           },
           signInError: '',
           posts: [{ title: 'Title 1', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 2', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 3', description: 'lorem lorem dklfdnkljd' }],
-          postError: ''
+          postError: '',
+          items: ['uno', 'dos', 'tres', 'cuatro']
         };
       },
 
@@ -107,6 +108,13 @@
           <template v-slot:header> Header </template>
           <template v-slot:content> Content </template>
         </v-layout>
+
+        <ul>
+          <v-item v-for="(item, index) in items" :key="index" v-bind:text="item" />
+          <v-item />
+
+        </ul>
+
         
         <div class="container" v-bind:class="containerStyles">
           <h2> {{ labelForLogin }} </h2>
@@ -158,6 +166,19 @@
 
 
 
+    });
+
+    app.component('v-item', {
+      // props: ['text'],
+      props: {
+        text: {
+          default: 'default text'
+        }
+      },
+      template: 
+      `
+        <li> {{ text }} </li>
+      `
     });
 
     app.component('v-layout', {
