@@ -34,6 +34,16 @@
         };
       },
 
+      // provide: {
+      //   testLabel: 'dd'
+      // },
+      provide() {
+        return {
+          testLabel: this.testLabel
+        }
+      },
+
+
       methods: {
         toggleOpen() {
           this.open = !this.open;
@@ -113,16 +123,18 @@
       },
 
       // <v-input v-bind:value="testLabel" v-on:inputKeyUp="inputKeyUp">
+      // <child-2 v-bind:testLabel="testLabel" />
       template:
         `
 
         <div> 
           {{ testLabel }}
+          <v-input v-model:value="testLabel">
         </div>
 
-      
-        <v-input v-model:value="testLabel">
-
+        <child-1 />
+        <child-2 />
+        
 
         <v-layout> 
           <template v-slot:header> Header </template>
@@ -203,6 +215,35 @@
       },
       template: 
       `<input type="text" v-bind:value="value" v-on:keyup="inputKeyUp">`
+    });
+
+    app.component('child-1', {
+      template:
+      `<div>Child 1<div>`
+    });
+
+    // app.component('child-2', {
+    //   props: { testLabel: {} },
+    //   template:
+    //   `<div>Child 2 <child-3 v-bind:testLabel="testLabel" /> <div>`
+    // });
+
+    // app.component('child-3', {
+    //   props: { testLabel: {} },
+    //   template:
+    //   `<div>Child 3 - {{ testLabel }}<div>`
+    // });
+
+    app.component('child-2', {
+      template:
+      `<div>Child 2 <child-3 /> <div>`
+    });
+
+    app.component('child-3', {
+      // inject: {testLabel: {}},
+      inject: ['testLabel'],
+      template:
+      `<div>Child 3 - {{ testLabel }}<div>`
     });
 
     app.component('v-item', {
