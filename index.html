@@ -29,7 +29,8 @@
           signInError: '',
           posts: [{ title: 'Title 1', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 2', description: 'lorem lorem dklfdnkljd' }, { title: 'Title 3', description: 'lorem lorem dklfdnkljd' }],
           postError: '',
-          items: ['uno', 'dos', 'tres', 'cuatro']
+          items: ['uno', 'dos', 'tres', 'cuatro'],
+          testLabel: 'Test label'
         };
       },
 
@@ -84,6 +85,9 @@
         },
 
 
+        // inputKeyUp(event) {
+        //   this.testLabel = event;
+        // }
 
       },
 
@@ -108,8 +112,18 @@
         }
       },
 
+      // <v-input v-bind:value="testLabel" v-on:inputKeyUp="inputKeyUp">
       template:
         `
+
+        <div> 
+          {{ testLabel }}
+        </div>
+
+      
+        <v-input v-model:value="testLabel">
+
+
         <v-layout> 
           <template v-slot:header> Header </template>
           <template v-slot:content> Content </template>
@@ -172,6 +186,23 @@
 
 
 
+    });
+
+    app.component('v-input', {
+      props: { value: {} },
+      methods: {
+        inputKeyUp(event) {
+          console.group('index.html => v-input => inputKeyUp');
+          console.log('event', event);
+          console.groupEnd();
+
+          const inputValue = event.target.value;
+          this.$emit('update:value', inputValue);
+
+        }
+      },
+      template: 
+      `<input type="text" v-bind:value="value" v-on:keyup="inputKeyUp">`
     });
 
     app.component('v-item', {
